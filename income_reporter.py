@@ -3,9 +3,12 @@ from datetime import datetime
 import sys
 
 # Internal library imports
+from utility.api_calls import get_coin_balance_history
 from utility.input_checks import check_blockscout_api, check_coinmarketcap_api
 from utility.input_checks import is_valid_eth_address, is_valid_year, check_file
 from utility.terminal_outputs import printLine, printHead, printFoot, printIntro
+from utility.price_calculation import create_daily_data_with_prices, calculate_total_income
+from utility.csv_exports import export_to_csv
 
 # Internal config data
 from config import BLOCKSCOUT_API_URL, COINMARKETCAP_HEADERS, COINMARKETCAP_API_URL
@@ -50,6 +53,25 @@ def generate_income_report():
     print(f"Starting income report at {start_time.strftime('%Y-%m-%d %H:%M')}")
     # Fetch income + withdrawal data from Blockscout
     printHead()
+
+    daily_deltas, miner_count, withdrawal_count = get_coin_balance_history()
+    validator_earnings = miner_count + withdrawal_count
+
+    """
+    Get price history from CoinMarketCap
+    for every day with income, e.g. positive deltas
+    """
+    daily_data = create_daily_data_with_prices(daily_deltas)
+
+    """
+    Export income data into a CSV file including
+    
+    - dates with their deltas
+    - daily price and income
+    """
+    csv_file_name = f"{file_name}.csv"
+    export_to_csv(csv_file_name, daily_data, ['Date', 'Received ' + COIN_NAME, 'Former ' + COIN_NAME + ' Price', 'Income in ' + FIAT_CURRENCY])
+    printLine()
 
 # Execute report when script is called
 if __name__ == '__main__':
