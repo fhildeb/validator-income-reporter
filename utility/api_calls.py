@@ -169,6 +169,68 @@ def get_coin_balance_history():
     # Return daily income metrics list
     return daily_deltas, miner_count, withdrawal_count
 
+def get_coin_price(date):
+    """
+    Uses the CoinMarketCap REST API to fetch the OHLCV coin price of a historical day.
+    Calculates the median value from open and closing position
+
+    :param date (datetime): The date for which to fetch the coin price.
+    :return (float or None): The median coin price for the given date, None if an error occurs.
+    """
+    
+    # REST API GET CALL
+    url = COINMARKETCAP_API_URL + '/v2/cryptocurrency/ohlcv/historical'
+    headers = COINMARKETCAP_HEADERS
+    params = {
+        'id': COINMARKETCAP_CRYPTO_ID,
+        'convert_id': COINMARKETCAP_FIAT_ID,
+        'time_period': 'daily',
+        'time_start': date.strftime('%Y-%m-%d'),
+        'time_end': date.strftime('%Y-%m-%d')
+    }
+
+    # API failure tolerance
+    retries = 3 # tries
+    backoff_factor = 2 # tries
+    timeout = 10  # seconds
+
+    for attempt in range(retries):
+        try:
+            # Call CoinMarketCap API with parameters
+            response = requests.get(url, headers=headers, params=params, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+
+            # Break the retry loop if the request was successful
+            break  
+        except (requests.ConnectionError, requests.Timeout) as e:
+            printLine(f"🟡 Network error. Retrying. {attempt + 1}/{retries}.", True)
+            time.sleep(backoff_factor ** attempt)
+        except requests.RequestException as e:
+            printLine(f"🔴 Error fetching CoinMarketCap data.", True)
+            return None
+    else:
+        printLine(f"❌ Failed to fetch CoinMarketCap data after {retries} attempts.", True)
+        return None
+
+    try:
+        # Extract open and closing price
+        ohlcv = data['data']['quotes'][0]['quote'][COINMARKETCAP_FIAT_ID]
+        open_price = ohlcv['open']
+        close_price = ohlcv['close']
+        
+        # Calculate daily median price
+        median_price = (open_price + close_price) / 2
+
+        # Wait 2 seconds for new call to respect rate limits
+        time.sleep(2)
+
+        return median_price
+    except (KeyError, IndexError) as e:
+        printLine(f"🟠 No available CoinMarketCap price data for {date}.", True)
+        return None
+
+
 def get_block_details(block_number):
     """
     Fetches block details using the Blockscout API.
