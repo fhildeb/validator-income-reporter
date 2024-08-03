@@ -22,9 +22,29 @@ _If this tool helped you out, I would be pleased about a donation:_
 - 📈 Historical median prices for daily earned income
 - 🧾 Daily, monthly, and yearly income metrics
 
+## Costs
+
+The income reporting tool uses the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/). To fetch historical price data, you will need to create a [CoinMarketCap Developer Account](https://coinmarketcap.com/api/pricing) and subscribe to either the _Hobbyist_, _Startup_, or _Standard_ pricing model to retrieve historical data.
+
+You will usually get a 100% discount for the first month after signing up, meaning you can generate your reports and switch back to the _free Basic Plan_ after that.
+
 ## Report Generation
 
 ![Income Reporter Export](/img/income_reporter_export.png)
+
+### General Description
+
+🤝 **Multi-Address Functionality:** The report is generated for one validator withdrawal address. However, you can use this tool to generate multiple reports and merge their raw CSV data using a table calculation program of your choice.
+
+🎯 **Accuracy Measurements**: The script retrieves data based on fetching batched coin balance events and calculating only positive withdrawal deltas that appeared due to being a block miner or listed within block withdrawals. The additional checks allow you to generate accurate staking reports even if you regularly send, receive, or sell coins from the address, as those will not be included.
+
+👟 **Run-Time**: The script's run-time will depend on the number of validators you are running and how far apart the year is from the current date. Every validator key that receives withdrawals to this address will take around 3-4 minutes. For every year it has to iterate through, it will take another 30 seconds per validator. If you have 10 validator keys connected to your address and want to generate a report that is one year in the past, the script will need around 40 minutes.
+
+### Tax Disclaimers
+
+> The tool and its developers make no guarantees or warranties regarding the data's completeness, reliability, or accuracy. Users acknowledge that the information provided by the tool may contain errors, omissions, or inaccuracies.
+
+> The tool's outputs should not be considered a substitute for professional advice from a qualified tax advisor, accountant, or lawyer. Users are advised to consult with appropriate professionals before making any decisions based on the data provided by the tool. The developers of this tool shall not be held responsible for any legal or tax-related consequences resulting from using the tool or its outputs.
 
 ## Development
 
