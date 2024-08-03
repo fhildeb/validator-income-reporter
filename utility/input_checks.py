@@ -38,3 +38,37 @@ def check_blockscout_api(api_url):
     except requests.RequestException as e:
         printLine(f"🔴 Error connecting to Blockscout API.", True)
         return False
+    
+def check_coinmarketcap_api(api_url, headers):
+    """
+    Check if the CoinMarketCap API is accessible.
+
+    :param api_url (str): The URL of the CoinMarketCap API.
+    :param headers (dict): Headers required for the CoinMarketCap API request.
+    :return (bool): True if the API is reachable, False otherwise.
+    """
+
+    # Sample request parameters
+    sample_params = {
+    'start': '1',
+    'limit': '5000',
+    'convert': 'EUR',  
+    }
+
+    try:
+        # Call API
+        sample_call = api_url + '/v1/cryptocurrency/listings/latest'
+        response = requests.get(sample_call, headers=headers, params=sample_params)
+
+        # If there was a valid return
+        if response.status_code == 200:
+            printLine("🟢 CoinMarketCap API is reachable.", True)
+            return True
+        else:
+            printLine("🟡 CoinMarketCap API is not reachable.", True)
+            return False
+    
+    # If the API is offline
+    except requests.RequestException as e:
+        printLine(f"🔴 Error connecting to CoinMarketCap API.", True)
+        return False
