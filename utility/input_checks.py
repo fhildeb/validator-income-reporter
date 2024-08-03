@@ -88,3 +88,20 @@ def is_valid_eth_address(address):
     else:
         printLine("🔴 Invalid Ethereum address.", True)
         return False
+    
+def is_valid_year(year):
+    """
+    Check if the provided year is a valid integer.
+
+    :param year (int): The year to validate.
+    :return (bool): True if the year is valid, False otherwise.
+    """
+    current_year = datetime.now().year
+
+    # If year is between current system date and 2014
+    if isinstance(year, int) and 2014 <= year <= current_year:
+        printLine("🟢 Valid year.", True)
+        return True
+    else:
+        printLine(f"🔴 Invalid year. Must be between 2014 and {current_year}.", True)
+        return False
