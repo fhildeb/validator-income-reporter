@@ -88,3 +88,54 @@ def csv_to_pdf(csv_file, pdf_file, miner_count, withdrawal_count):
     pdf.cell(0, 10, f"{withdrawal_count} withdrawal listings and {miner_count} miner records.", ln=True, align="L")
 
     pdf.ln(10)
+
+    ### YEARLY INCOME TABLE
+
+    # Prepare styling and title
+    pdf.ln(10)
+    pdf.set_font("Arial", size=14)
+    pdf.cell(200, 10, f"Monthly Incomes of {YEAR}", ln=True, align="C")
+    pdf.ln(10)
+    pdf.set_font("Arial", size=12)
+
+    # Prepare columns
+    col_width = pdf.w / 4
+    row_height = pdf.font_size
+    spacing = 1.2
+
+    # Create monthly income table headers
+
+    # Center the table horizontally
+    pdf.set_x((pdf.w - col_width * 3) / 2)
+    
+    # Set bold font for headers
+    pdf.set_font("Arial", size=12, style='B')  
+    
+    pdf.cell(col_width, row_height * spacing, "Month", border=1, align="R")
+    pdf.cell(col_width, row_height * spacing, "Crypto Currency", border=1, align="R")
+    pdf.cell(col_width, row_height * spacing, "Income", border=1, align="R")
+
+    # Reset font to regular
+    pdf.set_font("Arial", size=12)  
+    pdf.ln(row_height * spacing)
+
+    # Fill table with monthly income data
+    for month in range(1, 13):
+
+        # Center the table horizontally
+        pdf.set_x((pdf.w - col_width * 3) / 2)  
+        month_name_str = month_name[month]
+        income = monthly_incomes.get(month, 0.0)
+        coins = monthly_coins.get(month, 0.0)
+        pdf.cell(col_width, row_height * spacing, month_name_str, border=1, align="R")
+        pdf.cell(col_width, row_height * spacing, f"{coins:.8f} {COIN_NAME}", border=1, align="R")
+        pdf.cell(col_width, row_height * spacing, f"{income:.2f} {FIAT_CURRENCY}", border=1, align="R")
+        pdf.ln(row_height * spacing)
+
+    # Calculate yearly income
+    pdf.ln(10)
+    pdf.set_font("Arial", size=14, style='B')
+    pdf.cell(200, 10, f"Total received crypto currency: {total_coins:.8f} {COIN_NAME}", ln=True, align="C")
+    pdf.cell(200, 10, f"Total price-adjusted income: {total_income:.2f} {FIAT_CURRENCY}", ln=True, align="C")
+
+    pdf.set_font("Arial", size=12)
