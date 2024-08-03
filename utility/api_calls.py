@@ -230,7 +230,6 @@ def get_coin_price(date):
         printLine(f"🟠 No available CoinMarketCap price data for {date}.", True)
         return None
 
-
 def get_block_details(block_number):
     """
     Fetches block details using the Blockscout API.
