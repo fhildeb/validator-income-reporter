@@ -41,3 +41,34 @@ def create_daily_data_with_prices(daily_deltas):
     
     # Return report list
     return daily_data
+
+def calculate_total_income(daily_data):
+    """
+    Calculates the total income from the report list
+    and counts the days with missing income data.
+    
+    :param daily_data (list): A list containing daily income data.
+    :return (float, int): The total rounded FIAT income and days with missing income data.
+    """
+    total_income = 0.0
+    total_coins = 0.0
+    missing_data_count = 0
+
+    # Iterate through every day of the report
+    for row in daily_data:
+        coins = row[1]
+        income = row[3]
+
+        # Income calculation
+        if income is not None:
+            total_income += income
+        else:
+            missing_data_count += 1
+
+        total_coins += coins
+    
+    # Round the total income to 2 decimal places
+    total_income = round(total_income, 2)
+
+    # Return income and days with missing data
+    return total_income, total_coins, missing_data_count
