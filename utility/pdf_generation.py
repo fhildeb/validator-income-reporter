@@ -139,3 +139,63 @@ def csv_to_pdf(csv_file, pdf_file, miner_count, withdrawal_count):
     pdf.cell(200, 10, f"Total price-adjusted income: {total_income:.2f} {FIAT_CURRENCY}", ln=True, align="C")
 
     pdf.set_font("Arial", size=12)
+
+    ### MONTHLY INCOME PAGES
+
+    # Iterate through each month and add data pages
+    for month, month_df in df.groupby(df['Date'].dt.month):
+        month_name_str = month_name[month]
+
+        # Add new page for each month
+        pdf.add_page()
+        pdf.set_font("Arial", size=14)
+        pdf.cell(200, 10, f"Month: {month_name_str} {YEAR}", ln=True, align="C")
+        pdf.ln(10)
+
+        # Prepare styling and table headers
+        pdf.set_font("Arial", size=12, style='B')
+        col_width = pdf.w / 4.5
+        row_height = pdf.font_size
+        spacing = 1.2
+
+        # Create row for each day of the month
+        for col in month_df.columns:
+            pdf.cell(col_width, row_height * spacing, col, border=1, align="R")
+
+        # Prepare styling for table fields
+        pdf.set_font("Arial", size=12)
+        pdf.ln(row_height * spacing)
+
+        # Fill table with monthly income data
+        for row in month_df.itertuples():
+
+            # Date, formatted as YYYY-MM-DD
+            formatted_date = row[1].strftime('%Y-%m-%d')
+            pdf.cell(col_width, row_height * spacing, formatted_date, border=1, align="R")
+
+            # Received coins, formatted to 8 decimals
+            received_coins = f"{float(row[2]):.8f}" if row[2] is not None else "0.00000000"
+            pdf.cell(col_width, row_height * spacing, received_coins, border=1, align="R")
+
+            # Former coin price, formatted to 8 decimals
+            former_coin_price = f"{float(row[3]):.8f}" if row[3] is not None else "0.00000000"
+            pdf.cell(col_width, row_height * spacing, former_coin_price, border=1, align="R")
+
+            # Income in FIAT currency, formatted to 2 decimals
+            income = f"{float(row[4]):.2f}" if row[4] is not None else "0.00"
+            pdf.cell(col_width, row_height * spacing, income, border=1, align="R")
+            pdf.ln(row_height * spacing)
+
+        # Add monthly total income
+        pdf.ln(5)
+        pdf.set_font("Arial", size=12, style='B')
+        pdf.cell(0, 10, f"Monthly received crypto currency: {monthly_coins[month]:.8f} {COIN_NAME}", ln=True, align="R")
+        pdf.cell(0, 10, f"Monthly price-adjusted income: {monthly_incomes[month]:.2f} {FIAT_CURRENCY}", ln=True, align="R")
+        pdf.set_font("Arial", size=12)
+
+    # Export the PDF
+    pdf.output(pdf_file)
+
+    # Show finished export in terminal
+    printLine(f"🟣 PDF data has been successfully written to:", True)
+    printLine(f"🟣 {pdf_file}", True)
