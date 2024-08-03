@@ -72,3 +72,19 @@ def check_coinmarketcap_api(api_url, headers):
     except requests.RequestException as e:
         printLine(f"🔴 Error connecting to CoinMarketCap API.", True)
         return False
+
+def is_valid_eth_address(address):
+    """
+    Check if the provided Ethereum address is valid.
+
+    :param address (str): The Ethereum address to validate.
+    :return (bool): True if the address is valid, False otherwise.
+    """
+
+    # Verify REGEX
+    if re.match(r'^0x[a-fA-F0-9]{40}$', address):
+        printLine("🟢 Valid Ethereum address.", True)
+        return True
+    else:
+        printLine("🔴 Invalid Ethereum address.", True)
+        return False
