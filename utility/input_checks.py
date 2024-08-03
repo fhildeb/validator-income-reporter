@@ -105,3 +105,24 @@ def is_valid_year(year):
     else:
         printLine(f"🔴 Invalid year. Must be between 2014 and {current_year}.", True)
         return False
+    
+def check_file(filename):
+    """
+    Check if there already is a CSV and/or PDF file with an equal name. 
+    If yes, ask for approval to overwrite.
+
+    :param filename (str): The base name of the file to check for existence.
+    :return (bool): True if the file can be overwritten or does not exist, False otherwise.
+
+    """
+
+    # If filename exists for CSV or PDF, require user input
+    if os.path.exists(f"{filename}.csv") or os.path.exists(f"{filename}.pdf"):
+        print(f"\n++ Found CSV or PDF files with the following name:")
+        print(f"++ {filename}")
+        user_input = input("++ Do you want to overwrite them? (Y/N): ").strip().upper()
+        # User denied overwriting the files
+        if user_input != 'Y':
+            return False
+        print("++ Overwriting the files... \n")
+    return True
