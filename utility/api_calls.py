@@ -46,3 +46,38 @@ def get_block_details(block_number):
     
     printLine(f"❌ Failed to fetch block details after {retries} attempts.", True)
     return None
+
+def get_block_withdrawals(block_number):
+    """
+    Fetches block withdrawal details using the Blockscout API.
+
+    :param block_number (int): The block number to fetch withdrawal details for.
+    :return (dict or None): The block withdrawal details if successful, None otherwise.
+    """
+    url = f'{BLOCKSCOUT_API_URL}/v2/blocks/{block_number}/withdrawals'
+    
+    # API failure tolerance
+    retries = 3  # tries
+    backoff_factor = 2  # tries
+    timeout = 10  # seconds
+
+    for attempt in range(retries):
+        try:
+
+            # Call the Blockscout API to retrieve withdrawal data
+            response = requests.get(url, timeout=timeout)
+            response.raise_for_status()
+
+            # Wait 2 seconds for new call to respect rate limits
+            time.sleep(2)
+
+            return response.json()
+        except (requests.ConnectionError, requests.Timeout) as e:
+            printLine(f"🟡 Network error. Retrying. {attempt + 1}/{retries}.", True)
+            time.sleep(backoff_factor ** attempt)
+        except requests.RequestException as e:
+            printLine(f"🔴 Error fetching withdrawals for block {block_number}.", True)
+            return None
+    
+    printLine(f"❌ Failed to fetch withdrawals after {retries} attempts.", True)
+    return None
