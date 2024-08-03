@@ -36,6 +36,21 @@ def generate_income_report():
         return
     printFoot()
 
+    """
+    Check for existing CSV and PDF files
+    in the current folder and with the same name
+    """
+    file_name = f"income_report_{YEAR}_{ETH1_ADDRESS}"
+    if not check_file(file_name):
+        sys.exit("++ Operation aborted. File was not overwritten.\n")
+
+
+    start_time = datetime.now()
+
+    print(f"Starting income report at {start_time.strftime('%Y-%m-%d %H:%M')}")
+    # Fetch income + withdrawal data from Blockscout
+    printHead()
+
 # Execute report when script is called
 if __name__ == '__main__':
     try:
