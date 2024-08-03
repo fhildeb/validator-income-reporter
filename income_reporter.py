@@ -73,6 +73,42 @@ def generate_income_report():
     export_to_csv(csv_file_name, daily_data, ['Date', 'Received ' + COIN_NAME, 'Former ' + COIN_NAME + ' Price', 'Income in ' + FIAT_CURRENCY])
     printLine()
 
+    """
+    Generate report data metrics:
+
+    - Calculate yearly income in FIAT and crypto currency
+    - Measure failure tolerance of days without price
+    - Show total withdrawal listings and miner records
+    """
+    total_income, total_coins, missing_data_count = calculate_total_income(daily_data)
+    total_rows = len(daily_data)
+    total_coins_formatted = f"{total_coins:.8f}"
+
+    printLine(f"⏩ The address received a total of {validator_earnings} validator payments from:", True)
+    printLine(f"⏩ {withdrawal_count} withdrawal listings and {miner_count} miner records.", True)
+    printLine()
+    printLine(f"⏩ Received {total_coins_formatted} {COIN_NAME} in {YEAR} worth", True)
+    printLine(f"⏩ {total_income} {FIAT_CURRENCY} in price-adjusted income.", True)
+    printLine()
+    printLine(f"🔎 {missing_data_count} of {total_rows} days with income are missing price data", True)
+    printLine()
+
+    end_time = datetime.now()
+    
+     # Calculate the duration
+    duration = end_time - start_time
+
+    # Format the duration as hours, minutes, and seconds
+    duration_seconds = duration.total_seconds()
+    hours, minutes = divmod(duration_seconds // 60, 60)
+
+
+    # End terminal outputs
+    printLine()
+    printLine("🏁 Income report finished successfully", True)
+    printFoot()
+    print(f"Stopping income report at {end_time.strftime('%Y-%m-%d %H:%M')} after {int(hours):02}:{int(minutes):02}h \n\n")
+
 # Execute report when script is called
 if __name__ == '__main__':
     try:
