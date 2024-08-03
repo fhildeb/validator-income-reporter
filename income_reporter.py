@@ -8,6 +8,7 @@ from utility.input_checks import check_blockscout_api, check_coinmarketcap_api
 from utility.input_checks import is_valid_eth_address, is_valid_year, check_file
 from utility.terminal_outputs import printLine, printHead, printFoot, printIntro
 from utility.price_calculation import create_daily_data_with_prices, calculate_total_income
+from utility.pdf_generation import csv_to_pdf
 from utility.csv_exports import export_to_csv
 
 # Internal config data
@@ -92,6 +93,16 @@ def generate_income_report():
     printLine()
     printLine(f"🔎 {missing_data_count} of {total_rows} days with income are missing price data", True)
     printLine()
+
+    """
+    Generate PDF validator report including:
+
+    - Front page with address, description, and links
+    - Table showing monthly and yearly income
+    - Detailed pages for every month, showing daily income 
+    """
+    pdf_file_name = f"{file_name}.pdf"
+    csv_to_pdf(csv_file_name, pdf_file_name, miner_count, withdrawal_count)
 
     end_time = datetime.now()
     
