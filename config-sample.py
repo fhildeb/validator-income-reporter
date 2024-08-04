@@ -5,8 +5,13 @@ data from the Blockscout explorer of a given blockchain.
 - LUKSO Mainnet Explorer is used as default
 - always use without version tag or slash at the end
 - always use HTTPS for data transport protocol
+- API_KEY not always available, but can increase speed
+- CALL_WAIT_TIME is set to 50 calls per minute
+
 """
 BLOCKSCOUT_API_URL = 'https://explorer.execution.mainnet.lukso.network/api'
+BLOCKSCOUT_API_KEY = None
+BLOCKSCOUT_CALL_WAIT_TIME = 1.2
 
 """
 COINMARKETCAP_API_URL, COINMARKETCAP_API_KEY, COINMARKETCAP_HEADERS,
@@ -24,6 +29,7 @@ the data cetrieved from Blockscout to calculate FIAT income.
 - keep HEADER as is
 - ensure FIAT_ID is valid
 - ensure that CRYPTO_ID is valid and matches the blockchain
+- CALL_WAIT_TIME is set to 30 calls per minute
 
 - API KEY PRICING: https://coinmarketcap.com/api/pricing
 - FIAT ID CODES: - https://coinmarketcap.com/api/documentation/v1/#section/Standards-and-Conventions
@@ -40,6 +46,7 @@ COINMARKETCAP_API_URL = 'https://pro-api.coinmarketcap.com'
 COINMARKETCAP_API_KEY = '1a1a1a1a-1234-1234-1a1a-1a1a1a1a1a1a'
 COINMARKETCAP_FIAT_ID = '2790' # EUR = '2790', USD = '2781'
 COINMARKETCAP_CRYPTO_ID = '5625' # LYXe = '5625', LYX = '27622'
+COINMARKETCAP_CALL_WAIT_TIME = 2 # seconds
 COINMARKETCAP_HEADERS = {
     'Accepts': 'application/json',
     'X-CMC_PRO_API_KEY': COINMARKETCAP_API_KEY,

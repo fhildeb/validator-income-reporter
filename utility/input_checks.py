@@ -8,6 +8,7 @@ import requests
 
 # Internal library imports
 from utility.terminal_outputs import printLine
+from config import BLOCKSCOUT_API_KEY
 
 def check_blockscout_api(api_url):
     """
@@ -16,6 +17,11 @@ def check_blockscout_api(api_url):
     :param api_url (str): The URL of the Blockscout API.
     :return (bool): True if the API is reachable, False otherwise.
     """
+    url = f'{api_url}'
+    
+    if BLOCKSCOUT_API_KEY is not None:
+        url += f'&apikey={BLOCKSCOUT_API_KEY}'
+
     try:
         # Sample request parameters
         params = {
@@ -23,8 +29,7 @@ def check_blockscout_api(api_url):
             'action': 'ethprice'
         }
 
-        # Call API
-        response = requests.get(api_url, params=params)
+        response = requests.get(url, params=params)
 
         # If there was a valid return
         if response.status_code == 200:

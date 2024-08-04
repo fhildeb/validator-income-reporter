@@ -9,9 +9,9 @@ import time
 from utility.terminal_outputs import printLine
 
 # Internal config data
-from config import BLOCKSCOUT_API_URL, COINMARKETCAP_API_URL
+from config import BLOCKSCOUT_API_URL, BLOCKSCOUT_API_KEY, COINMARKETCAP_API_URL
 from config import COINMARKETCAP_CRYPTO_ID, COINMARKETCAP_FIAT_ID, COINMARKETCAP_HEADERS
-from config import ETH1_ADDRESS, YEAR
+from config import ETH1_ADDRESS, YEAR, BLOCKSCOUT_CALL_WAIT_TIME, COINMARKETCAP_CALL_WAIT_TIME
 
 def get_coin_balance_history():
     """
@@ -29,6 +29,9 @@ def get_coin_balance_history():
 
     # REST API GET CALL
     url = f'{BLOCKSCOUT_API_URL}/v2/addresses/{ETH1_ADDRESS}/coin-balance-history'
+
+    if BLOCKSCOUT_API_KEY is not None:
+        url += f'&apikey={BLOCKSCOUT_API_KEY}'
 
     # Income delta objects
     daily_deltas = {}
@@ -158,8 +161,8 @@ def get_coin_balance_history():
 
         next_page_params = data.get('next_page_params')
 
-        # Wait 2 seconds to respect rate limits
-        time.sleep(2)
+        # Wait to respect rate limits
+        time.sleep(BLOCKSCOUT_CALL_WAIT_TIME)
 
         # If there are no more coin balance history events, break the loop
         if not next_page_params or int(next_page_params.get('block_number', 1)) == 0:
@@ -222,8 +225,8 @@ def get_coin_price(date):
         # Calculate daily median price
         median_price = (open_price + close_price) / 2
 
-        # Wait 2 seconds for new call to respect rate limits
-        time.sleep(2)
+        # Wait to respect rate limits
+        time.sleep(COINMARKETCAP_CALL_WAIT_TIME)
 
         return median_price
     except (KeyError, IndexError) as e:
@@ -239,6 +242,9 @@ def get_block_details(block_number):
     """
     url = f'{BLOCKSCOUT_API_URL}/v2/blocks/{block_number}'
     
+    if BLOCKSCOUT_API_KEY is not None:
+        url += f'&apikey={BLOCKSCOUT_API_KEY}'
+
     # API failure tolerance
     retries = 3  # tries
     backoff_factor = 2  # tries
@@ -251,8 +257,9 @@ def get_block_details(block_number):
             response = requests.get(url, timeout=timeout)
             response.raise_for_status()
 
-            # Wait 2 seconds for new call to respect rate limits
-            time.sleep(2)
+            # Wait to respect rate limits
+            time.sleep(BLOCKSCOUT_CALL_WAIT_TIME)
+            
             return response.json()
         except (requests.ConnectionError, requests.Timeout) as e:
             printLine(f"🟡 Network error. Retrying. {attempt + 1}/{retries}.", True)
@@ -272,6 +279,9 @@ def get_block_withdrawals(block_number):
     :return (dict or None): The block withdrawal details if successful, None otherwise.
     """
     url = f'{BLOCKSCOUT_API_URL}/v2/blocks/{block_number}/withdrawals'
+
+    if BLOCKSCOUT_API_KEY is not None:
+        url += f'&apikey={BLOCKSCOUT_API_KEY}'
     
     # API failure tolerance
     retries = 3  # tries
@@ -285,8 +295,8 @@ def get_block_withdrawals(block_number):
             response = requests.get(url, timeout=timeout)
             response.raise_for_status()
 
-            # Wait 2 seconds for new call to respect rate limits
-            time.sleep(2)
+            # Wait to respect rate limits
+            time.sleep(BLOCKSCOUT_CALL_WAIT_TIME)
 
             return response.json()
         except (requests.ConnectionError, requests.Timeout) as e:

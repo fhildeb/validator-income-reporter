@@ -38,7 +38,7 @@ You will usually get a 100% discount for the first month after signing up, meani
 
 🎯 **Accuracy Measurements**: The script retrieves data based on fetching batched coin balance events and calculating only positive withdrawal deltas that appeared due to being a block miner or listed within block withdrawals. The additional checks allow you to generate accurate staking reports even if you regularly send, receive, or sell coins from the address, as those will not be included.
 
-👟 **Run-Time**: The script's run-time will depend on the number of validators you are running and how far apart the year is from the current date. Every validator key that receives withdrawals to this address will take around 3-4 minutes. For every year it has to iterate through, it will take another 30 seconds per validator. If you have 10 validator keys connected to your address and want to generate a report that is one year in the past, the script will need around 40 minutes.
+👟 **Run-Time**: The script's run-time will depend on the number of validators you are running, how far apart the year is from the current date, and if the Blockscout instance supports API Keys. By default, every validator key that receives withdrawals to this address will add around 90 seconds. For every year it has to iterate through, it will add another 15 seconds per validator. If you have 10 validator keys connected to your address and want to generate a report that is one year in the past, the script will need around 18 minutes. If your Blockscout instance supports API Keys, you could further increase the speed to 10 seconds per validator key and 2 seconds per iterated year, meaning you can generate a report for 100 validator keys in just 20 minutes.
 
 ### Tax Disclaimers
 
@@ -90,7 +90,8 @@ If you want to create a report for a different [EVM-based Network](https://www.c
 
 1. API endpoints at `BLOCKSCOUT_API_URL` and `COINMARKETCAP_API_URL`
 2. Cryptocurrency at `COINMARKETCAP_CRYPTO_ID` and `COIN_NAME`
-3. Blockchain explorer referenced at the `EXPLORER_LINK`
+3. Blockchain explorer referenced in the `EXPLORER_LINK`
+4. `BLOCKSCOUT_API_KEY` and reduce the `BLOCKSCOUT_CALL_WAIT_TIME` to `0.12`
 
 ### Startup
 
