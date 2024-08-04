@@ -91,7 +91,11 @@ If you want to create a report for a different [EVM-based Network](https://www.c
 1. API endpoints at `BLOCKSCOUT_API_URL` and `COINMARKETCAP_API_URL`
 2. Cryptocurrency at `COINMARKETCAP_CRYPTO_ID` and `COIN_NAME`
 3. Blockchain explorer referenced in the `EXPLORER_LINK`
-4. `BLOCKSCOUT_API_KEY` and reduce the `BLOCKSCOUT_CALL_WAIT_TIME` to `0.12`
+
+If your Blockscout instance supports [Blockscout API Keys](https://docs.blockscout.com/for-users/my-account/api-keys) modify the:
+
+1. Blockscout API Key at `BLOCKSCOUT_API_KEY`
+2. Call Frequency at `BLOCKSCOUT_CALL_WAIT_TIME` to around `0.12`
 
 ### Startup
 

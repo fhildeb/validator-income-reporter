@@ -5,13 +5,15 @@ data from the Blockscout explorer of a given blockchain.
 - LUKSO Mainnet Explorer is used as default
 - always use without version tag or slash at the end
 - always use HTTPS for data transport protocol
+
 - API_KEY not always available, but can increase speed
 - CALL_WAIT_TIME is set to 50 calls per minute
+- Increase CALL_WAIT_TIME if you get issues retrieving data
 
 """
 BLOCKSCOUT_API_URL = 'https://explorer.execution.mainnet.lukso.network/api'
 BLOCKSCOUT_API_KEY = None
-BLOCKSCOUT_CALL_WAIT_TIME = 1.2
+BLOCKSCOUT_CALL_WAIT_TIME = 1.2 # seconds
 
 """
 COINMARKETCAP_API_URL, COINMARKETCAP_API_KEY, COINMARKETCAP_HEADERS,
