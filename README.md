@@ -1,6 +1,6 @@
 # validator-income-reporter
 
-The Ethereum Validator Income Report Tool, written in Python, can create reports for any Ethereum blockchain with a Blockscout Explorer listed on CoinMarketCap.
+An Ethereum Validator Income Report Tool, written in Python, that can create reports for any Ethereum blockchain using the Blockscout Explorer and CoinMarketCap price metrics.
 
 ![Income Reporter Terminal](/img/income_reporter_terminal.png)
 
@@ -20,7 +20,7 @@ _If this tool helped you out, I would be pleased about a donation:_
 - 💰 Daily positive coin deltas from withdrawal listings and miner records
 - 💯 Validator reward counter for withdrawal listings and block records
 - 📈 Historical median prices for daily earned income
-- 🧾 Daily, monthly, and yearly income metrics
+- 🧾 Daily, monthly, and yearly income in crypto and FIAT
 
 ## Costs
 
