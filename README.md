@@ -10,21 +10,21 @@ _If this tool helped you out, I would be pleased about a donation:_
 ## Features
 
 - 🪙 Collects daily income data from an ETH1 address for any given year
-- 💸 Calculates FIAT income based on daily historical coin prices
+- 💸 Calculates FIAT revenue based on daily historical coin prices
 - 📊 Exports collected metrics into a CSV file
-- 📄 Generates a detailed PDF with 13 pages for yearly income reports
+- 📄 Generates a detailed PDF with 13 pages with metrics and metadata
 - 🔧 Blockchain, Coin, and FIAT currency can be freely configured
 
 ## Metrics
 
-- 💰 Daily positive coin deltas from withdrawal listings and miner records
-- 💯 Validator reward counter for withdrawal listings and block records
-- 📈 Historical median prices for daily earned income
+- 💰 Daily balance increases from withdrawal listings and miner records
+- 💯 Validator reward counter for withdrawal listings and miner records
+- 📈 Historical median prices for daily revenue insights
 - 🧾 Daily, monthly, and yearly income in crypto and FIAT
 
 ## Costs
 
-The income reporting tool uses the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/). To fetch historical price data, you will need to create a [CoinMarketCap Developer Account](https://coinmarketcap.com/api/pricing) and subscribe to either the _Hobbyist_, _Startup_, or _Standard_ pricing model to retrieve historical data.
+The income reporter uses the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/). To fetch historical price data, you will need to create a [CoinMarketCap Developer Account](https://coinmarketcap.com/api/pricing) and subscribe to either the _Hobbyist_, _Startup_, or _Standard_ pricing model to retrieve historical data.
 
 You will usually get a 100% discount for the first month after signing up, meaning you can generate your reports and switch back to the _free Basic Plan_ after that.
 
