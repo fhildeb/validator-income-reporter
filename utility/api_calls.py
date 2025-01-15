@@ -129,10 +129,11 @@ def get_coin_balance_history():
 
                     # Fetch block withdrawals to verify if the address is listed in the withdrawals
                     block_withdrawals = get_block_withdrawals(item_block_number)
-                    is_withdrawal = any(
-                        withdrawal['receiver']['hash'] == ETH1_ADDRESS
-                        for withdrawal in block_withdrawals.get('items', [])
-                    )
+                    if block_withdrawals is not None:
+                        is_withdrawal = any(
+                            withdrawal['receiver']['hash'] == ETH1_ADDRESS
+                            for withdrawal in block_withdrawals.get('items', [])
+                        )
 
                     # Log if the address is found in withdrawals
                     if is_withdrawal:
