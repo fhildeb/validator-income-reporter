@@ -47,7 +47,7 @@ only had minimal price fluctuations. For 2024 and beyond, please always use LYX.
 COINMARKETCAP_API_URL = 'https://pro-api.coinmarketcap.com'
 COINMARKETCAP_API_KEY = '1a1a1a1a-1234-1234-1a1a-1a1a1a1a1a1a'
 COINMARKETCAP_FIAT_ID = '2790' # EUR = '2790', USD = '2781'
-COINMARKETCAP_CRYPTO_ID = '5625' # LYXe = '5625', LYX = '27622'
+COINMARKETCAP_CRYPTO_ID = '27622' # LYXe = '5625', LYX = '27622'
 COINMARKETCAP_CALL_WAIT_TIME = 2 # seconds
 COINMARKETCAP_HEADERS = {
     'Accepts': 'application/json',
