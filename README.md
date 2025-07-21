@@ -65,7 +65,7 @@ git clone https://github.com/fhildeb/validator-income-reporter.git
 python3 -m venv income-reporter-tool
 
 # Install necessary dependencies
-pip3 install requests install pandas fpdf
+pip3 install requests pandas fpdf
 ```
 
 ### Configuration
@@ -101,7 +101,7 @@ If your Blockscout instance supports [Blockscout API Keys](https://docs.blocksco
 
 ```bash
 # Activate the Virtual Python Environment
-source python-tool/bin/activate
+source income-reporter-tool/Scripts/activate
 
 # Run Income Reporter Script
 python3 income_reporter.py
