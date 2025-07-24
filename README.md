@@ -57,15 +57,21 @@ brew install python
 
 ### Installation
 
-```
-# Clone the repository
+```bash
+# Clone the Repository
 git clone https://github.com/fhildeb/validator-income-reporter.git
 
-# Create a Virtual Python Environment
-python3 -m venv income-reporter-tool
+# Create a Virtual Python Environment on Mac and Linux
+python3 -m venv report-environment
 
-# Install necessary dependencies
-pip3 install requests install pandas fpdf
+# Create a Virtual Python Environment on Windows
+python -m venv report-environment
+
+# Install Dependencies on Mac and Linux
+pip3 install requests pandas fpdf
+
+# Install Dependencies on Windows
+pip install requests pandas fpdf
 ```
 
 ### Configuration
@@ -100,11 +106,17 @@ If your Blockscout instance supports [Blockscout API Keys](https://docs.blocksco
 ### Startup
 
 ```bash
-# Activate the Virtual Python Environment
-source python-tool/bin/activate
+# Activate the Virtual Python Environment on Mac and Linux
+source report-environment/bin/activate
 
-# Run Income Reporter Script
+# Activate the Virtual Python Enrironment on Windows
+source report-environment\Scripts\Activate.ps1
+
+# Run the Income Reporter Script on Mac and Linux
 python3 income_reporter.py
+
+# Run Income Reporter Script on Windows
+python income_reporter.py
 ```
 
 ### Shutdown
