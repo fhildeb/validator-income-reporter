@@ -127,6 +127,43 @@ python3 income_reporter.py
 python income_reporter.py
 ```
 
+## Command Line Flags
+
+The `income_reporter.py` script supports optional flags to modify its behavior:
+
+| Flag         | Description                                                                        | Example Usage                                  |
+| ------------ | ---------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `--dry-run`  | Uses a local CSV file with daily prices instead of querying the CoinMarketCap API. | `--dry-run ./price-data/median_lyx_prices.csv` |
+| `--pdf-only` | Generates a PDF directly from a given CSV file.                                    | `--pdf-only ./sample-data/income_report.csv`   |
+
+> Attached daily median prices for LYX in EUR up to date until Dec 2024.
+
+```bash
+# Activate the Virtual Python Environment
+
+# Mac and Linux
+source report-environment/bin/activate
+
+# Windows
+source report-environment\Scripts\Activate.ps1
+
+# Run the Income Reporter Script using Local Price Data
+
+# Mac and Linux
+python3 income_reporter.py --dry-run ./price-data/median_lyx_prices_eur.csv
+
+# Windows
+python income_reporter.py --dry-run ./price-data/median_lyx_prices_eur.csv
+
+# Only Re-Generate the PDF from an existing CSV Report
+
+# Mac and Linux
+python3 income_reporter.py --pdf-only ./sample-data/income_report_2023_0x6e13888469A55A9899A9f270fe34e342853FB725.csv
+
+# Windows
+python income_reporter.py --pdf-only ./sample-data/income_report_2023_0x6e13888469A55A9899A9f270fe34e342853FB725.csv
+```
+
 ### Shutdown
 
 After the tool finished sucessfully, you will see the generated CSV and PDF files within the folder. They are both called income report and include the year and your address within the file name. After the files have been generated, the virtual environment can be deactivated.

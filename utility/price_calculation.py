@@ -46,7 +46,7 @@ def create_daily_data_with_prices(daily_deltas, price_lookup_file=None):
         # Get local price data
         if price_lookup_file:
             coin_price = price_map.get(date)
-        # API price data
+        # Get API price data
         else:
             coin_price = get_coin_price(date)
         
@@ -63,7 +63,7 @@ def create_daily_data_with_prices(daily_deltas, price_lookup_file=None):
 
         # Write new daily entry into the report list
         daily_data.append([date, delta_coin, coin_price, income])
-        
+
     # Return report list
     return daily_data
 
