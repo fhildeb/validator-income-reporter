@@ -4,6 +4,7 @@
 import pandas as pd
 from fpdf import FPDF
 from calendar import month_name
+import os
 
 # Internal library imports
 from utility.terminal_outputs import printLine
@@ -80,12 +81,27 @@ def csv_to_pdf(csv_file, pdf_file, miner_count, withdrawal_count):
     pdf.set_x(inset)
     pdf.cell(0, 10, f"Coin: {COIN_NAME}", ln=True, align="L")
     pdf.ln(15)
-    pdf.set_x(inset)
-    pdf.cell(0, 10, f"{ETH1_ADDRESS}", ln=True, align="L")
-    pdf.set_x(inset)
-    pdf.cell(0, 10, f"received a total of {total_validations} validator payments from", ln=True, align="L")
-    pdf.set_x(inset)
-    pdf.cell(0, 10, f"{withdrawal_count} withdrawal listings and {miner_count} miner records.", ln=True, align="L")
+
+    # Only show validator stats if any records exist
+    if total_validations > 0:
+        pdf.set_x(inset)
+        pdf.cell(0, 10, f"{ETH1_ADDRESS}", ln=True, align="L")
+        pdf.set_x(inset)
+        pdf.cell(0, 10, f"received a total of {total_validations} validator payments from", ln=True, align="L")
+        pdf.set_x(inset)
+        pdf.cell(0, 10, f"{withdrawal_count} withdrawal listings and {miner_count} miner records.", ln=True, align="L")
+    
+    # Otherwise, state local price data information for dry-runs
+    else:
+        pdf.set_x(inset)
+        pdf.cell(0, 10, f"Report generated for address", ln=True, align="L")
+        pdf.set_x(inset)
+        pdf.cell(0, 10, f"{ETH1_ADDRESS}", ln=True, align="L")
+        pdf.set_x(inset)
+        pdf.cell(0, 10, f"using daily price data from a local CSV file.", ln=True, align="L")
+        pdf.ln(10)
+        pdf.ln(10)
+
 
     pdf.ln(10)
 
@@ -198,4 +214,4 @@ def csv_to_pdf(csv_file, pdf_file, miner_count, withdrawal_count):
 
     # Show finished export in terminal
     printLine(f"🟣 PDF data has been successfully written to:", True)
-    printLine(f"🟣 {pdf_file}", True)
+    printLine(f"🟣 {os.path.basename(pdf_file)}", True)

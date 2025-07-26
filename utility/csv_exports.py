@@ -2,6 +2,7 @@
 
 # External libraries
 import csv
+import os
 
 # Internal library imports
 from utility.terminal_outputs import printLine
@@ -24,4 +25,4 @@ def export_to_csv(filename, data, headers):
     # Show finished export in terminal
     printLine()
     printLine(f"🟣 CSV data has been sucessfully written to:", True)
-    printLine(f"🟣 {filename}", True)
+    printLine(f"🟣 {os.path.basename(filename)}", True)
