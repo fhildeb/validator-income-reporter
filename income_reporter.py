@@ -1,6 +1,8 @@
 # System libraries
 from datetime import datetime
 import sys
+import argparse
+import os
 
 # Internal library imports
 from utility.api_calls import get_coin_balance_history
@@ -15,7 +17,7 @@ from utility.csv_exports import export_to_csv
 from config import BLOCKSCOUT_API_URL, COINMARKETCAP_HEADERS, COINMARKETCAP_API_URL
 from config import ETH1_ADDRESS, YEAR, COIN_NAME, FIAT_CURRENCY
 
-def generate_income_report():
+def generate_income_report(dry_run_file=None):
     # Generates the income report.
 
     # Start terminal outputs
@@ -59,10 +61,10 @@ def generate_income_report():
     validator_earnings = miner_count + withdrawal_count
 
     """
-    Get price history from CoinMarketCap
+    Get price history from CoinMarketCap or local CSV file
     for every day with income, e.g. positive deltas
     """
-    daily_data = create_daily_data_with_prices(daily_deltas)
+    daily_data = create_daily_data_with_prices(daily_deltas, dry_run_file)
 
     """
     Export income data into a CSV file including
@@ -123,7 +125,40 @@ def generate_income_report():
 # Execute report when script is called
 if __name__ == '__main__':
     try:
-        generate_income_report()
+        # Parse CLI arguments
+        parser = argparse.ArgumentParser(description="Generate LYX income report")
+        parser.add_argument('--dry-run', type=str, help='Use a local CSV file with daily prices instead of API')
+        parser.add_argument('--pdf-only', type=str, help='Use an existing CSV file to generate PDF only')
+        args = parser.parse_args()
+
+        # Validate optional file paths
+        if args.dry_run:
+            if not os.path.isfile(args.dry_run):
+                print(f"❌ The dry-run file '{args.dry_run}' does not exist or is not a file.")
+                sys.exit(1)
+            if not args.dry_run.lower().endswith('.csv'):
+                print(f"❌ The dry-run file '{args.dry_run}' is not a .csv file.")
+                sys.exit(1)
+        if args.pdf_only:
+            if not os.path.isfile(args.pdf_only):
+                print(f"❌ The pdf-only file '{args.pdf_only}' does not exist or is not a file.")
+                sys.exit(1)
+            if not args.pdf_only.lower().endswith('.csv'):
+                print(f"❌ The pdf-only file '{args.pdf_only}' is not a .csv file.")
+                sys.exit(1)
+
+        # Only generate PDF from CSV
+        if args.pdf_only:
+            printHead()
+            file_base = os.path.splitext(args.pdf_only)[0]
+            pdf_file_name = file_base + ".pdf"
+            csv_to_pdf(args.pdf_only, pdf_file_name, miner_count=0, withdrawal_count=0)
+            printLine("🏁 PDF generated successfully.", True)
+            printFoot()
+            sys.exit(0)
+
+        # Run main reporter script
+        generate_income_report(args.dry_run)
     # Script gets exited
     except KeyboardInterrupt:
         print("\n\nProgram interrupted by user. Exiting gracefully. \n")
