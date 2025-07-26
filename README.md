@@ -131,12 +131,12 @@ python income_reporter.py
 
 The `income_reporter.py` script supports optional flags to modify its behavior:
 
-| Flag         | Description                                                                        | Example Usage                                  |
-| ------------ | ---------------------------------------------------------------------------------- | ---------------------------------------------- |
-| `--dry-run`  | Uses a local CSV file with daily prices instead of querying the CoinMarketCap API. | `--dry-run ./price-data/median_lyx_prices.csv` |
-| `--pdf-only` | Generates a PDF directly from a given CSV file.                                    | `--pdf-only ./sample-data/income_report.csv`   |
+| Flag                     | Description                                                                        |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| `--dry-run` <file-path>  | Uses a local CSV file with daily prices instead of querying the CoinMarketCap API. |
+| `--pdf-only` <file-path> | Generates a PDF directly from a given CSV file.                                    |
 
-> Attached daily median prices for LYX in EUR up to date until Dec 2024.
+> The [attached daily median prices](/price-data/median_lyx_prices_eur.csv) for LYX in EUR are up to date until December 2024.
 
 ```bash
 # Activate the Virtual Python Environment
