@@ -8,6 +8,7 @@ config.py
 
 # Virtual Environment Folders
 python-*
+report-environment
 
 # Data Storage
 *.DS_Store
