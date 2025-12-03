@@ -178,7 +178,7 @@ def get_coin_price(date):
     Uses the CoinMarketCap REST API to fetch the OHLCV coin price of a historical day.
     Calculates the median value from open and closing position
 
-    :param date (datetime or date or 'YYYY-MM-DD' string): The date for which to fetch the coin price.
+    :param date (datetime or 'YYYY-MM-DD' string): The date for which to fetch the coin price.
     :return (float or None): The median coin price for the given date, None if an error occurs.
     """
 
@@ -232,7 +232,7 @@ def get_coin_price(date):
         ohlcv = data['data']['quotes'][0]['quote'][COINMARKETCAP_FIAT_ID]
         open_price = ohlcv['open']
         close_price = ohlcv['close']
-        
+
         # Calculate daily median price
         median_price = (open_price + close_price) / 2
 
