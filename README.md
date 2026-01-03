@@ -24,7 +24,7 @@ _If this tool helped you out, I would be pleased about a donation:_
 
 ## Costs
 
-The income reporter uses the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/). To fetch historical price data, you will need to create a [CoinMarketCap Developer Account](https://coinmarketcap.com/api/pricing) and subscribe to either the _Hobbyist_, _Startup_, or _Standard_ pricing model to retrieve historical data.
+The income reporter uses the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/). To fetch historical price data, you will need to create a [CoinMarketCap Developer Account](https://coinmarketcap.com/api/pricing) and subscribe to either the _Startup_, or _Standard_ pricing model to retrieve historical data.
 
 You will usually get a 100% discount for the first month after signing up, meaning you can generate your reports and switch back to the _free Basic Plan_ after that.
 

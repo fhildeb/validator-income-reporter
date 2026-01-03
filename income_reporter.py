@@ -48,7 +48,7 @@ def generate_income_report(dry_run_file=None):
     """
     file_name = f"income_report_{YEAR}_{ETH1_ADDRESS}"
     if not check_file(file_name):
-        sys.exit("++ Operation aborted. File was not overwritten.\n")
+        sys.exit("++ Aborted. File was not overwritten.\n")
 
 
     start_time = datetime.now()
