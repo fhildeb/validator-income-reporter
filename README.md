@@ -24,9 +24,11 @@ _If this tool helped you out, I would be pleased about a donation:_
 
 ## Costs
 
-The income reporter uses the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/). To fetch historical price data, you will need to create a [CoinMarketCap Developer Account](https://coinmarketcap.com/api/pricing) and subscribe to either the _Startup_, or _Standard_ pricing model to retrieve historical data.
+By default, the income reporter uses the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/). To fetch historical price data, you will need to create a [CoinMarketCap Developer Account](https://coinmarketcap.com/api/pricing) and subscribe to either the _Startup_ or _Standard_ pricing model to retrieve historical data.
 
-You will usually get a 100% discount for the first month after signing up, meaning you can generate your reports and switch back to the _free Basic Plan_ after that.
+> You will usually get a 100% discount for the first month after signing up, meaning you can generate your reports and switch back to the _free Basic Plan_ without any costs.
+
+Optionally, you can generate reports using the attached [median price lists](/price-data/) for LYXe and LYX in either USD or EUR. The data has been generated from previous runs using the [CoinMarketCap API](https://coinmarketcap.com/api/documentation/v1/).
 
 ## Report Generation
 
@@ -136,7 +138,7 @@ The `income_reporter.py` script supports optional flags to modify its behavior:
 | `--dry-run` <file-path>  | Uses a local CSV file with daily prices instead of querying the CoinMarketCap API. |
 | `--pdf-only` <file-path> | Generates a PDF directly from a given CSV file.                                    |
 
-> The [attached daily median prices](/price-data/median_lyx_prices_eur.csv) for LYX in EUR are up to date until December 2024.
+> The attached [daily median prices](/price-data/median_lyx_prices_eur.csv) for LYX in EUR and USD are up to date until December 2025. A previous list for LYXe is attached in EUR for older reports, including prices starting of 6. June 2023, when withdrawals got enabled on LUKSO.
 
 ```bash
 # Activate the Virtual Python Environment
@@ -163,6 +165,8 @@ python3 income_reporter.py --pdf-only ./sample-data/income_report_2023_0x6e13888
 # Windows
 python income_reporter.py --pdf-only ./sample-data/income_report_2023_0x6e13888469A55A9899A9f270fe34e342853FB725.csv
 ```
+
+> When using the local price lists, ensure that dates match the report year.
 
 ### Shutdown
 
