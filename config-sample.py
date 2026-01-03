@@ -13,7 +13,7 @@ data from the Blockscout explorer of a given blockchain.
 """
 BLOCKSCOUT_API_URL = 'https://explorer.execution.mainnet.lukso.network/api'
 BLOCKSCOUT_API_KEY = None
-BLOCKSCOUT_CALL_WAIT_TIME = 1.2 # seconds
+BLOCKSCOUT_CALL_WAIT_TIME = 1.2 # seconds (max 75 calls per minute ~0.8)
 
 """
 COINMARKETCAP_API_URL, COINMARKETCAP_API_KEY, COINMARKETCAP_HEADERS,
@@ -48,7 +48,7 @@ COINMARKETCAP_API_URL = 'https://pro-api.coinmarketcap.com'
 COINMARKETCAP_API_KEY = '1a1a1a1a-1234-1234-1a1a-1a1a1a1a1a1a'
 COINMARKETCAP_FIAT_ID = '2790' # EUR = '2790', USD = '2781'
 COINMARKETCAP_CRYPTO_ID = '27622' # LYXe = '5625', LYX = '27622'
-COINMARKETCAP_CALL_WAIT_TIME = 2 # seconds
+COINMARKETCAP_CALL_WAIT_TIME = 3 # seconds (max 30 calls per minute ~2)
 COINMARKETCAP_HEADERS = {
     'Accepts': 'application/json',
     'X-CMC_PRO_API_KEY': COINMARKETCAP_API_KEY,
